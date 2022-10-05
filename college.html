@@ -1,0 +1,384 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Data Cleaning & Preparation</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Estera Wisniewska</strong> College project</a>
+									<ul class="icons">
+										<li><a href="https://public.tableau.com/app/profile/estera.wisniewska" class="image"><span img src="images/tableau.png" alt="">Tableau</span></a></li>
+										<li><a href="https://github.com/EsteraWisniewska" class="icon brands fa-github"><span class="label">fa-github</span></a></li>
+									
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<span class="image main"><img src="images/secrets.png" alt="" /></span>
+										<h1>1.	INTRODUCTION</h1>
+									</header>
+
+									<p>We all have a secrets. It is in a human nature to keep some information to ourself and do not share with anybody else but close family or friends. It is true that we like to always keep a few cards in our sleeve and use them in right time just to gain advantage over someone.</p>
+									<p>We like to feel that we are better than others, we like to present ourselves in better light and keeping some information to ourself can make it happen. But, why are we doing the same to a census questions which are anonymous? We cannot do ‘better’ here? We are not able to score 
+										higher than the rest, so why are we doing it? Are we ashamed of something? Or scared to admit that we might be not as good as ‘the rest’? Or, maybe it is in our nature? If so, do some of us are more prone to keep secrets than others?<p></p>
+									<p>Let check what society is trying to hide the most and who might be the most secretive person of us all  - Person X.</p>
+										
+
+									<hr class="major" />
+
+									<h2>1.	LOCATION - CHECKING IF ALL PARTS OF IRELAND ARE EQUALY SECRETIVE</h2>
+								</p>
+
+							</p><strong>STEP I - CALCULATING THE SAMPLE SIZE AND SELECTING SAMPLING METHOD.</strong>
+									<p></p>For the beginning of this analysis, we will have a closer look at census questions based on Small Area Population Statistics (SAPS) which were answered by people living in Ireland.
+									<p>Data for each county is divided into multiple ‘small areas’ which represent a different number of dwellings therefore for more accurate results we are going to use percentage of total responds (by question in each county) as our data sets.
+									<p>In census from 2016 there was 18 questions where person had option ‘Other’ or could write answer by himself but did not do it. Both of this answers were recorded as ‘not stated’ and that is exactly what we will be focusing on.</p>
+									<p>We want to check how secretive is population of Ireland therefore will start our analysis by creating sufficient sample size. </p>
+									<p style="line-height:5px;">Small Area Population Statistics recorded 31 areas/counties and this will be our population size – N;   </p>
+									<p style="line-height:5px;">Confidence level = 95%</p>
+									<p style="line-height:5px;">Margin of Error = 5%
+										<p style="line-height:5px;">Sample size = 29   (based on online calculator )</p>
+									<p>Using simple random sampling method all areas were assignes to a unique number and 29 numbers were pulled at random.</p>
+								
+								<p><strong>STEP II - CHECKING IF EACH COUNTY HAS A NORMAL DISTRIBUTION.</strong></p>
+									<p></p>
+									<p style="line-height:5px;">H0: all counties have approximately normal distribution
+									<p style="line-height:5px;">HA: at least one of the county has not normal distribution
+									<p style="line-height:5px;">alpha = 0.05   - most suitable for social studies</p>
+									<p>We will accept H0 if      Sig  > alpha   and reject if H0     Sig < alpha.</p>
+
+
+
+									<span class="image main"><img src="images/SECRETS/1.Normality.png" alt="" /></span>
+									<span class="image main"><img src="images/SECRETS/1a.png" alt="" /></span>
+									
+									<p>Looking at the Shapiro – Wilk  test results we can see that significance for every county is higher than alpha = 0.05  which means we accept H0.
+										<p><strong>CONCLUSION: </strong></p>
+										<p>All counties have approximately normal distribution.
+											DISCLOSURE: to avoid Type II Error sample size within each county should be increased from 10 to a suitable proportion of county data in Small Area File.
+											</p>
+
+									<p><strong>STEP III – LOOKING FOR THE VARIANCE BETWEEN AREAS</strong></p>
+
+
+									<p></p>Is any of the county more secretive than the other? In order to answer this question we will have to look at the difference between them. Is there any difference and if so, which county likes to keep secrets.
+									<p>We have 29, independent, random samples with normal distribution therefore best test would be One-Way Anova but we are failing variance requirement. Because our samples are small and variance between each sample is not equal we will proceed with Kruskal-Wallis test.</p>
+									<p style="line-height:5px;">H0: sample median are equal   
+										<p style="line-height:5px;">HA: sample median are not equal</p>
+										<p style="line-height:5px;">alpha = .05  
+									
+									<p>
+
+									</p>		<span class="image main"><img src="images/SECRETS/Kruskal.png" alt="" /></span>
+									<p></p>Significance = .001 			
+									<p></p>.001 < .05        Reject H0
+									<p>Kruskal-Wallis Test results shows that not all medians are equal => there is a difference between counties median.
+									<span class="image main"><img src="images/SECRETS/3.png" alt="" /></span>
+									<span class="image main"><img src="images/SECRETS/4.png" alt="" /></span>
+									
+									
+									
+									
+									<P><strong>CONCLUSION:</strong></P>
+									<p>Population of Ireland is not equally secretive and some counties prefer not to answer questions at higher level than others. Biggest difference is between Wexford and Donegal.</p>
+
+
+
+
+		
+											<hr class="major" />
+
+									<h2>2.	NARROWING THE LOCATION</h2>
+									<p>Results above shows that there is significant difference between counties in whole Ireland, but will it be the same withing one county? If one county will be divided into smaller groups will all parts have different level of secrecy?<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+										<p>To answer this question we will compare counties of Dublin, in more specific: Dublin South and Fingal.</p>
+										<p>Using Python code we can produce descriptive for both samples.</p>
+										<span class="image main"><img src="images/SECRETS/5.png" alt="" /></span>
+									
+									<p><strong>STEP I - CHECKING IF EACH COUNTY HAS A NORMAL DISTRIBUTION.</strong>
+										<p style="line-height:5px;">H0: all counties have approximately normal distribution
+										<p style="line-height:5px;">HA: at least one of the county has not normal distribution</p>
+									<p></p>
+									<p>Best way to check normality of smaller samples is Shapiro Wilk test. We will accept H0 when p-value will be > alpha and reject when p-value will be < alpha.</p>
+									<span class="image main"><img src="images/SECRETS/6.png" alt="" /></span>
+										
+									<p>The p-values for both counties is smaller than alpha = .05 therefore we reject H0.</p>
+										
+									
+									
+									<P><strong>CONCLUSION:</P></strong>
+									<p>Results show that none of the counties have a normal distribution.</p>
+
+
+									<p><strong>STEP II - LOOKING FOR THE VARIANCE BETWEEN DUBLIN’S COUNTIES</p></strong>
+										<p>We have 2 small, random, continuous samples with not normal distribution, taken from the same area, which I will assume, depends/pair together at some level – best test will be Wilcoxon Signed Rank Test.</p>
+										<p style="line-height:5px;">H0:  median difference between 2 counties is zero   </p>
+										<p style="line-height:5px;">HA:  median difference between 2 counties is not zero</p>
+										<p style="line-height:5px;">n = 18; alpha = .05</p>
+										<span class="image main"><img src="images/SECRETS/7.png" alt="" /></span>
+									<p>Based on results we are going to reject H0.</p>
+										<p></p>
+										<p><strong>CONCLUSION :</p></strong>
+										<p>Our Wilcoxon Signed Rank Test results shows that there is a difference in medians between South Dublin and Fingal which means that there is a difference between South Dublin and Fingal regarding not answering questions.</p>
+
+
+									</p>
+									<hr class="major" />
+
+									<h2>3.	GENDER </h2>
+									<p>In this part of analysis we will focus on gender, are Females more or less secretive than Males? Or are we prefer not to share some information at the same level?
+										
+									<p><strong>STEP I – CALCULATING SAMPLE SIZE AND CHOOSING SAMPLING METHOD</strong></p>
+									<p>Small Area Population Statistics has 18600 records,</p>
+									<p style="line-height:5px;">N = 18600
+										<p style="line-height:5px;">Confidence Level = 95%
+											<p style="line-height:5px;">Margin of Error = 5%</p>
+											<p style="line-height:5px;">n = 376
+									</p>
+									<p>Since there is no gender related pattern, best method for this sampling will be systematic sampling where data is organised in order. One random small area was chosen as a starting point and next 375 small areas were choses every 50th row in data set.</p>
+									<p>We have 9 questions with possible answer ‘Not Stated’ or ‘Other’  which were divided by a gender. Answers from those questions were calculated as percentage of total responds for the question and calculated average for each of Small Area was taken.</p>
+
+									<P><strong>STEP II - CHECKING IF GENDER SAMPLES HAVE NORMAL DISTRIBUTION</strong></P>
+									<p style="line-height:5px;">H0: both genders have approximately normal distribution</p>
+									<p style="line-height:5px;">HA: at least one gender has not normal distribution</p>
+									<p>We will accept H0 if      Sig  > alpha   and reject if H0     Sig < alpha.</p>
+									<span class="image main"><img src="images/SECRETS/8.png" alt="" /></span>
+									<span class="image main"><img src="images/SECRETS/9.png" alt="" /></span>
+									<p>Both gender’s p value / Significance is lower than alpha = 0.05. </p>
+									<p></p>
+									<p><strong>CONCLUSION :</p></strong>
+									<p>Both groups have not normal distribution.
+								
+									<p><strong>STEP III – CHECKING IF THERE IS SIGNIFICANT DIFFERENCE BETWEEN MALE AND FEMALE REGARDING TO NOT ANSWERING QUESTIONS.</strong></p>
+									<p>We have 2 independent, big samples with not normal distribution therefore best test for checking difference between them will be Mann – Whitney U Test.</p>
+									<p>H0:  there is no difference between gender</p>
+									<p>HA:  there is difference between gender</p>
+									<p>We will accept H0 if      Sig  > alpha    and reject if H0     Sig < alpha.</p>
+									<span class="image main"><img src="images/SECRETS/10.png" alt="" /></span>
+									<p>Mann-Whitney U Test Sig. > .05 therefore we will accept H0.</p>
+
+									<p><strong>CONCLUSION :</strong></p>
+									<p>Test results strongly indicates that there is no difference between gender regarding to not answering census questions.</p>
+
+
+
+									
+									<hr class="major" />
+									
+									<h2>4.	QUESTIONS – WHAT IS THE SUBJECT ARE WE TRYING TO HIDE THE MOST?</h2>
+									<p>It is commonly known that there are some sensitive subjects which people are trying to avoid. We will not talk about them, ask questions and will not answer if any sensitive to us topic will arise. It is in our nature. </p>
+									<p>But what subject is sensitive to us in census?</p>
+									<p>In this part we are going to analyse each question where population of Ireland could select ‘Other’ or not answer at all. We are assuming that the person by choosing option ‘Other’ do not want to answer the question as a main reason - rather than lack of variety of answers.</p>
+
+									<p><strong>STEP I – CHECKING NORMALITY OF EACH SAMPLE</strong></p>
+									<p style="line-height:5px;">H0: all questions have approximately normal distribution</p>
+									<p style="line-height:5px;">HA: at least one of the question has not normal distribution</p>
+									<p style="line-height:5px;">We will accept H0 if      Sig  > alpha   and reject if H0     Sig < alpha.</p>	
+									<p>Shapiro Wilks results from Python output:</p>
+									<span class="image main"><img src="images/SECRETS/11.png" alt="" /></span>
+									
+									<p>P-value for question 15   is < alpha    therefore we will fail to accept H0.</p>
+									<p><strong>CONCLUSION :</strong></p>
+									<p>Not all samples have approximately normal distribution.</p>
+
+									<p><strong>STEP II – COMPARING IF ALL QUESTIONS ARE NOT BEEING ANSWERED AT THE SAME LEVEL</strong></p>
+									<p>In Small Area Population Statistics file we have 18 questions where answers were logged as ‘Other’ or ‘Not stated’.  We will be looking for a difference between questions.</p>
+									</p>We have 18 samples, with not normal distribution – best test will be Kruskal Wallis H test.
+									<p style="line-height:5px;">H0: sample median are equal   </p>
+									<p style="line-height:5px;">HA: sample median are not equal</p>
+									<p style="line-height:5px;">We will accept H0 if       Sig. > alpha   and reject if     Sig. < alpha  ; alpha = .05.</p>
+									<p>Python output for Kruskal Wallis H test shows: </p>
+									<p style="line-height:5px;">H:  187.13831273199932 , p-value:  1.0853988671552265e-30</p>
+									<p>Significant difference between the Questions is found.</p>
+
+									<p><strong>CONCLUSION:</p></strong>
+									<p>Results of the test concludes that not all questions are ‘not answered’ at the same level. People decided not to answer to some questions more often than to other. </p>
+									<span class="image main"><img src="images/SECRETS/12.png" alt="" /></span>
+									<p></p>
+									<span class="image main"><img src="images/SECRETS/13.png" alt="" /></span>
+									<p></p>
+
+
+
+
+
+									<hr class="major" />
+									
+									<h2>5.	TESTING – is it true that Wexford is more secretive than ‘the REST’?</h2>
+									<p>In our first test we concluded that county Wexford is more secretive than other. We took 10 random small areas from each county, calculated average from each and that was our sample for each county.</p>
+									<p>Now we will compare responses for each question. We are going to check if Wexford don’t answer particular question at similar level as the whole population.</p>
+									<p>We want to measure the discrepancy between Wexford and the population’s level of not answering questions - the best test to do is Chi Square test (Goodness of fit).</p>
+									<p>We start with population sample n = 376, calculating average percentage for each question, and this will be our EXPECTED value.
+									<p>Wexford average percentage for each question will be OBSERVED value. </p>
+									</p>
+									<span class="image main"><img src="images/SECRETS/14.png" alt="" /></span>
+									<p>Wexford do not follow population distribution and answers questions at different level than population.</p>
+									<p></p>
+									<p><strong>CONCLUSION:</strong></p>
+									<p>Wexford is truly more secretive than the rest of Irish population.</p>
+
+
+
+
+									<hr class="major" />
+									
+									<h2>6.	SUMMARY</h2>
+									<p>At the beginning of this analysis we stated that we all have secrets and we do not like to share some information in general.</p>
+									<p>Based on Small Area file, we conducted statistical tests and discovered that each county do not answer question at different level and Wexford is the most secretive area of Ireland. People living there, on average, are more likely to chose answer ‘Other’ or not answer to question at all, than the rest of population. </p>
+									<p>Similar results were founded after performing test on Dublin area. Different parts of Dublin have different level of secrecy.
+									We found out as well that the most sensitive subject is Education and Health. Questions relating to this subjects were left unanswered the most.</p>
+									<p>Another test results showed that there is no difference between female and male in secrecy level. Unfortunately data set did not allow us to perform any further analysis and we were unable to discover who is the most secretive person from us all. Characteristics on Person X remaining unknown.</p>
+
+
+
+
+
+
+									<p></p>
+									<p><strong>(Unless, Person X is so secretive that, did not respond to census questions at all.)</strong></p>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+						
+								</section>
+
+							<!-- Menu -->
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="index.html">Homepage</a></li>
+									<li>
+										<span class="opener">Data Cleaning & Preparation</span>
+										<ul>
+											<li><a href="DC-def.html">Definition</a></li>
+											<li><a href="DC-Excel.html">Excel</a></li>
+											<li><a href="DC-SQL.html">SQL</a></li>
+											
+										</ul>
+									<li>
+										<span class="opener">Comparing results</span>
+										<ul>
+											<li><a href="COMP.html">Definition</a></li>
+											<li>
+												<span class="opener">2 groups</span>
+												<ul>
+													<li><a href="COMP-2GR.html">Do two social platforms generate the same response to the ad?</a></li>
+													<li><a href="COMP-2GR z-test.html">How well does it compare with others?</a></li>
+													<li><a href="COMP-MANN.html">Can Ad be perceived differently by genders?</a></li>
+													<li><a href="COMP-WILCOXON.html">How many 'shorts' teenagers are watching?</a></li>
+													<li><a href="COMP-CHI.html">It was a really bad day...</a></li>
+												</ul>
+											<li>
+												<span class="opener">Many groups</span>
+												<ul>
+													<li><a href="COMP-ANOVA.html">Which company is the quickest?</a></li>
+													<li><a href="COMP-2ANOVA.html">Does weather temperature impacs gender running sessions?</a></li>
+													<li><a href="COMP-KRUSKAL.html">Groups comparison</a></li>
+												</ul>
+											</ul>
+										
+									<li>
+										<span class="opener">Prediction - Regression</span>
+										<ul>
+											<li><a href="Regression.html">Definition</a></li>
+											<li><a href="Reg-Single.html">1 Factor - Single Linear Regression</a></li>
+											<li><a href="Reg-Multiple.html">Few Factors - Multiple Linear Regression</a></li>
+											<li><a href="Reg-Loga.html">Binary Results - Logarithmic Regression</a></li>
+											<li><a href="Reg - factor.html">Way too Many Factors - Factor Analysis</a></li>
+										</ul>
+									<li><a href="Reporting.html">Reporting</a></li>
+									<li><a href="Web.html">Web Scraping</a></li>
+									<li><a href="college.html">College Projects</a></li>
+									
+								</ul>
+							</nav>
+
+
+							<!-- Section -->
+							<section>
+								<header class="major">
+									<h2>ADDITIONAL</h2>
+								</header>
+								<div class="mini-posts">
+									<article>
+										<a href="https://www.empik.com/the-one-wisniewska-estera,p1308263146,ebooki-i-mp3-p" class="image"><img src="images/Book.jpg" alt="" /></a>
+										<p>BOOK IS IN POLISH - Every fame has its price ... The fact that in show business there is no room for weakness or scruples, 
+											Katie found out on the first day of the competition. America's greatest music show attracted crowds of applicants, offering instant success, international fame and, 
+											above all, huge amounts of money. However, no one is talking about the other side of the program. 
+											<p></p>Could there be anything worse than constant surveillance of private life, insidiously plotted plans or the boundless hostility of jurors? Of course ... the past!</p>
+									</article>
+										<article>
+											<a href="https://www.empik.com/szukaj/produkt?q=estera%20wisniewska&qtype=basicForm" class="image"><img src="images/tura.png" alt="" /></a>
+											<p>BOOK IS IN POLISH - First week in the Criminal Investigation Department and her first case -
+												man's dismembered body symmetrically arranged in plastic containers.
+											<p></p>The task of the reader is to make choices at the end of each chapter to save the remaining victims and capture the murderer.</p>
+										<p>Can you save them all?</p>
+										</article>
+										<article>
+											<a href="https://www.empik.com/szczesliwe-malzenstwo-wisniewska-estera,p1236383349,ebooki-i-mp3-p" class="image"><img src="images/szcz.png" alt="" /></a>
+											<p>BOOK IS IN POLISH - And I vow to you love, fidelity and honesty in marriage ... What if your other half does something really bad? Something that is an extremely cruel act for you ... Will you stand for her in hard times, or will you hand her over to justice?
+
+											</p>The book illustrates marital relations in the light of the law, pain and deeply hidden secrets.</p>
+										</article>
+									</div>
+									
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">wisniewskaestera100@gmail.com</a></li>
+									
+										<li class="icon solid fa-home">Dublin Ireland<br />
+										</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

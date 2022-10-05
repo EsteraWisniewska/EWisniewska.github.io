@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Data Cleaning & Preparation</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Estera Wisniewska</strong> Data Cleaning & Preparation</a>
+									<ul class="icons">
+										<li><a href="https://public.tableau.com/app/profile/estera.wisniewska" class="image"><span img src="images/tableau.png" alt="">Tableau</span></a></li>
+										<li><a href="https://github.com/EsteraWisniewska" class="icon brands fa-github"><span class="label">fa-github</span></a></li>
+									
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										
+										<h1>Data Cleaning & Preparation - SQL</h1>
+										<h2>Introduction - data explaination</h2>
+									</header>
+
+									
+									<p>Data I am going to work on is Dublin Housing. It contains house sales information like date of transaction, 
+										price, property address, name and address of the owner and few more.</p>
+										<span class="image main"><img src="images/DC SQL/DCSQL all.png" alt="" /></span>
+									<p> Looking at the raw data, I noticed a few places where data could be improved</p>
+
+
+									
+									<hr class="major" />
+
+									<h2>Date</h2>
+									
+									<p>Sale date in the file is with time format which is not necessary, does not look 'clean' and may introduce issues if we would like perform any analysis based in date frame.
+									<p>Starting from selecting <strong>'SaleDate' </strong>and converted (stripped from time addition) copy of it,
+									I added column at the end of the table and populated it with converted SaleDate.
+									<p> The original column could be deleted but I decided to leave it.</p>
+										<span class="image main"><img src="images/DC SQL/date.png" alt="" /></span>
+									<p> Now I have clean date of sale which is much more</p>
+									
+									
+									
+									<hr class="major" />
+
+									<h2>Property Address - Checking for missing values</h2>
+									
+									<p>Since whole data is about property sales, it is extremely important to have information such as property address, therefore I
+										check for NULL values in <strong>'PropertyAddress'</strong> column.<p></p>
+										<span class="image main"><img src="images/DC SQL/ad null.png" alt="" /></span>
+									<p>Results shows that there are some missing fields which must be populated or (if population will fail) further investigated.
+									First, I selected all data to find any matching points, and found out that properties with the same ‘ParcelID’ having the same’ PropertyAddress’.  </p>
+									<p>Using self-join I joined table with itself using <strong>‘ParcelID’ </strong>and put under condition – SQL will copy<strong> ‘PropertyAddress’ </strong>only if<strong> ‘UniqueID’ </strong>will be different.
+									Means, it will join table where<strong> 'ParcelID'</strong> is the same but it is not the same row. 
+										</p><span class="image main"><img src="images/DC SQL/DC SQL Address3.png" alt="" /></span>
+									<p>Now I selected property address where is null and copy.
+									After updating a table, I requested again for a Property Address column where IS NULL and receive blank table. This means that my update was successful, there is no missing addresses in the table.
+										</p><span class="image main"><img src="images/DC SQL/dc sql ad 4.png" alt="" /></span>
+									<p> There are no missing values in <strong>'PropertyAddress'</strong> column. </p>
+									
+									
+									
+									<hr class="major" />
+
+									<h2>Property Address - Dividing the Address method 1</h2>
+
+									<p>When address is clustered in one field it is hard to pull informative insights like, for example, in which town people buying/selling properties the most. 
+									<p></p>This type of information may be used in many different ways, as an possible investment area, marketing location, new branch location etc., which might be beneficial for company.
+										</p><span class="image main"><img src="images/DC SQL/address separated.png" alt="" /></span>
+									<p> I used Substring as a methodd to devide <strong>'PropertyAddress'</strong>. Starting from first character of the string, until coma sign, will be the main address for property. Adding '-1' will remove coma sign after first part of the address.
+									<p> In second line of SUBSTRING I called <strong>'PropertyAddress’ </strong>and started from: coma placement +1, which will read all characters behind coma in the string.
+									<p> Lastly I need to specify when it has to end. Addresses ussually have different numbers of characters and I do not want to guess, or count what is the longest, therefore I request to end at the lenght of each address string, len(). </p>
+									</p> At the end I added to the table new columns, basic address as <strong>‘PropertySplitAddress’ </strong>and Town as <strong>‘PropertySplitTown’</strong>.</p>
+										</p><span class="image main"><img src="images/DC SQL/address  separ 2.png" alt="" /></span>
+									
+									
+									<hr class="major" />
+
+									<h2>Owner Address - Dividing the Address method 2</h2>
+									
+									<p>I will split Owner Address as well but this time will use much faster and easier method PARSENAME(). Since PARSENAME() is works only for periods, I am replacing comas sign with periods.</p>
+									</p><span class="image main"><img src="images/DC SQL/Owner Address.png" alt="" /></span>
+									<p>Once again I am altering table. Now data is much more useful.
+									
+
+									<hr class="major" />
+
+									<h2>Formatting 'Yes' and 'No'</h2>
+									
+									<p>Having multiple ways for answers 'yes' and 'no' can create issues in further analysis. Luckly SQL is not case sensitive and will understands word even if is written from small or capitol letter, but for more esthetical look
+									formatting these type of answers is a good practise and , moreover we can change if someone input 'y' instead of 'yes' and solve future problem right at the base.
+										</p><span class="image main"><img src="images/DC SQL/yes.png" alt="" /></span>
+									
+									</p>In my data I have 7 fields where answer was putted as 'N' instead of 'No'. Once again, if I would need to proceed with analyse of properties sold as vacant, this type of answer would case me an issue.
+									<p>I selected 'SoldAsVacant' and use CASE condition to change fields and apply one uniform apperance.</p>
+										</p><span class="image main"><img src="images/DC SQL/no.png" alt="" /></span>
+									
+								
+									<hr class="major" />
+
+									<h2>Duplicates</h2>
+									
+									<p></p>Checking for duplicates (and I mean, 100% duplicated row, not few, common fields).
+									Starting from adding a row number and partitioning table on unique values for each row (I could use <strong>‘UniqueID’ </strong>column but data might be entered twice and receive new<strong> ‘UniqueID’ </strong>number, therefore I will use other columns as references).
+										</p><span class="image main"><img src="images/DC SQL/duplicates 1.png" alt="" /></span>
+									
+									<p> </p>
+									I took <strong>'ParcelID', 'PropertyAddress', 'SalePrice', 'SaleDate', 'LegarReference'</strong> and now, in last colum of the table I have row number which is telling me how many times this row is appering in my data.
+									If row number will be greater than 1, I will investigate rows and if they all match, I will understand that this rows are duplicates.
+										</p><span class="image main"><img src="images/DC SQL/duplicates 2.png" alt="" /></span>
+									<p> There are no rows with values for a row number > 1 which means, there is no duplicates in a data.</p>
+
+
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							
+
+							<!-- Menu -->
+							<nav id="menu">
+								<header class="major">
+									<h2>Menu</h2>
+								</header>
+								<ul>
+									<li><a href="index.html">Homepage</a></li>
+									<li>
+										<span class="opener">Data Cleaning & Preparation</span>
+										<ul>
+											<li><a href="DC-def.html">Definition</a></li>
+											<li><a href="DC-Excel.html">Excel</a></li>
+											<li><a href="DC-SQL.html">SQL</a></li>
+											
+										</ul>
+									<li>
+										<span class="opener">Comparing results</span>
+										<ul>
+											<li><a href="COMP.html">Definition</a></li>
+											<li>
+												<span class="opener">2 groups</span>
+												<ul>
+													<li><a href="COMP-2GR.html">Do two social platforms generate the same response to the ad?</a></li>
+													<li><a href="COMP-2GR z-test.html">How well does it compare with others?</a></li>
+													<li><a href="COMP-MANN.html">Can Ad be perceived differently by genders?</a></li>
+													<li><a href="COMP-WILCOXON.html">How many 'shorts' teenagers are watching?</a></li>
+													<li><a href="COMP-CHI.html">It was a really bad day...</a></li>
+												</ul>
+											<li>
+												<span class="opener">Many groups</span>
+												<ul>
+													<li><a href="COMP-ANOVA.html">Which company is the quickest?</a></li>
+													<li><a href="COMP-2ANOVA.html">Does weather temperature impacs gender running sessions?</a></li>
+													<li><a href="COMP-KRUSKAL.html">Groups comparison</a></li>
+												</ul>
+											</ul>
+										
+									<li>
+										<span class="opener">Prediction - Regression</span>
+										<ul>
+											<li><a href="Regression.html">Definition</a></li>
+											<li><a href="Reg-Single.html">1 Factor - Single Linear Regression</a></li>
+											<li><a href="Reg-Multiple.html">Few Factors - Multiple Linear Regression</a></li>
+											<li><a href="Reg-Loga.html">Binary Results - Logarithmic Regression</a></li>
+											<li><a href="Reg - factor.html">Way too Many Factors - Factor Analysis</a></li>
+										</ul>
+									<li><a href="Reporting.html">Reporting</a></li>
+									<li><a href="Web.html">Web Scraping</a></li>
+									<li><a href="college.html">College Projects</a></li>
+									
+								</ul>
+							</nav>
+
+
+							<!-- Section -->
+							<section>
+								<header class="major">
+									<h2>ADDITIONAL</h2>
+								</header>
+								<div class="mini-posts">
+									<article>
+										<a href="https://www.empik.com/the-one-wisniewska-estera,p1308263146,ebooki-i-mp3-p" class="image"><img src="images/Book.jpg" alt="" /></a>
+										<p>BOOK IS IN POLISH - Every fame has its price ... The fact that in show business there is no room for weakness or scruples, 
+											Katie found out on the first day of the competition. America's greatest music show attracted crowds of applicants, offering instant success, international fame and, 
+											above all, huge amounts of money. However, no one is talking about the other side of the program. 
+											<p></p>Could there be anything worse than constant surveillance of private life, insidiously plotted plans or the boundless hostility of jurors? Of course ... the past!</p>
+									</article>
+										<article>
+											<a href="https://www.empik.com/szukaj/produkt?q=estera%20wisniewska&qtype=basicForm" class="image"><img src="images/tura.png" alt="" /></a>
+											<p>BOOK IS IN POLISH - First week in the Criminal Investigation Department and her first case -
+												man's dismembered body symmetrically arranged in plastic containers.
+											<p></p>The task of the reader is to make choices at the end of each chapter to save the remaining victims and capture the murderer.</p>
+										<p>Can you save them all?</p>
+										</article>
+										<article>
+											<a href="https://www.empik.com/szczesliwe-malzenstwo-wisniewska-estera,p1236383349,ebooki-i-mp3-p" class="image"><img src="images/szcz.png" alt="" /></a>
+											<p>BOOK IS IN POLISH - And I vow to you love, fidelity and honesty in marriage ... What if your other half does something really bad? Something that is an extremely cruel act for you ... Will you stand for her in hard times, or will you hand her over to justice?
+
+											</p>The book illustrates marital relations in the light of the law, pain and deeply hidden secrets.</p>
+										</article>
+									</div>
+									
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">wisniewskaestera100@gmail.com</a></li>
+									
+										<li class="icon solid fa-home">Dublin Ireland<br />
+										</li>
+									</ul>
+								</section>
+
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
